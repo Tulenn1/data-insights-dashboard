@@ -32,7 +32,6 @@ data-insights-dashboard/
 │   └── seed.sql            # Datos de ejemplo
 ├── alembic/                # Migraciones
 ├── tests/                  # Tests unitarios (pytest)
-├── agents-stack/           # Pipeline de subagentes
 └── docker-compose.yml      # PostgreSQL + app
 ```
 
@@ -62,14 +61,3 @@ streamlit run app.py
 | `ruff check . && ruff format --check .` | Lint + formato |
 | `python scripts/run_checks.py` | Lint + tests automáticos |
 
-## Pipeline de subagentes
-
-El proyecto incluye un pipeline de desarrollo asistido por IA con 12 subagentes:
-
-```bash
-opencode run "/context"                              # Documentar proyecto
-opencode run "/planner Nueva funcionalidad"           # Planificar
-opencode run "/spec" && opencode run "/tasks"         # Features + tareas
-opencode run "/implement-all"                        # Implementar
-opencode run "/pr-ready"                             # Commit + PR
-```
