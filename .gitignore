@@ -15,6 +15,11 @@ docs/pipeline/
 docs/context/
 docs/references/
 
+# Tooling / subagentes (no código de la app)
+.opencode/
+agents-stack/
+AGENTS.md
+
 # Alembic
 alembic/versions/
 
