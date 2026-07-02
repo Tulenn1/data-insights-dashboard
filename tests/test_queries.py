@@ -1,7 +1,7 @@
 from datetime import date
 
 import pytest
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import Session
 
 from src.queries import (
@@ -25,24 +25,24 @@ def session():
         cursor.close()
 
     conn = engine.connect()
-    conn.execute(
-        __import__("sqlalchemy").text("""
-        CREATE TABLE categories (id INTEGER PRIMARY KEY, name TEXT);
-        CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, category_id INTEGER, price REAL, cost REAL);
-        CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, email TEXT, region TEXT);
-        CREATE TABLE orders (id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT, total REAL, status TEXT);
-        CREATE TABLE order_items (id INTEGER PRIMARY KEY, order_id INTEGER, product_id INTEGER, quantity INTEGER, unit_price REAL);
-    """)
-    )
-    conn.execute(
-        __import__("sqlalchemy").text("""
-        INSERT INTO categories VALUES (1, 'Electrónica'), (2, 'Ropa');
-        INSERT INTO products VALUES (1, 'Laptop', 1, 1500, 1100), (2, 'Mouse', 1, 45, 25), (3, 'Camiseta', 2, 35, 15);
-        INSERT INTO customers VALUES (1, 'Juan', 'juan@e.com', 'Norte'), (2, 'Ana', 'ana@e.com', 'Sur');
-        INSERT INTO orders VALUES (1, 1, '2024-01-15', 1500, 'completed'), (2, 1, '2024-02-10', 45, 'completed'), (3, 2, '2024-03-05', 35, 'completed');
-        INSERT INTO order_items VALUES (1, 1, 1, 1, 1500), (2, 2, 2, 1, 45), (3, 3, 3, 1, 35);
-    """)
-    )
+    for stmt in [
+        "CREATE TABLE categories (id INTEGER PRIMARY KEY, name TEXT)",
+        "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, category_id INTEGER, price REAL, cost REAL)",
+        "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, email TEXT, region TEXT)",
+        "CREATE TABLE orders (id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT, total REAL, status TEXT)",
+        "CREATE TABLE order_items (id INTEGER PRIMARY KEY, order_id INTEGER, product_id INTEGER, quantity INTEGER, unit_price REAL)",
+    ]:
+        conn.execute(text(stmt))
+
+    for stmt in [
+        "INSERT INTO categories VALUES (1, 'Electrónica'), (2, 'Ropa')",
+        "INSERT INTO products VALUES (1, 'Laptop', 1, 1500, 1100), (2, 'Mouse', 1, 45, 25), (3, 'Camiseta', 2, 35, 15)",
+        "INSERT INTO customers VALUES (1, 'Juan', 'juan@e.com', 'Norte'), (2, 'Ana', 'ana@e.com', 'Sur')",
+        "INSERT INTO orders VALUES (1, 1, '2024-01-15', 1500, 'completed'), (2, 1, '2024-02-10', 45, 'completed'), (3, 2, '2024-03-05', 35, 'completed')",
+        "INSERT INTO order_items VALUES (1, 1, 1, 1, 1500), (2, 2, 2, 1, 45), (3, 3, 3, 1, 35)",
+    ]:
+        conn.execute(text(stmt))
+
     conn.commit()
     yield Session(bind=conn)
     conn.close()
