@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "planner": {
+      "model": "opencode-go/deepseek-v4-pro",
+      "mode": "subagent"
+    },
+    "task-splitter": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "task-archiver": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "implementer": {
+      "model": "opencode-go/minimax-m2.7",
+      "mode": "subagent"
+    },
+    "validator": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "fixer": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "pr-creator": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "spec-writer": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "batch-implementer": {
+      "model": "opencode-go/deepseek-v4-pro",
+      "mode": "subagent"
+    },
+    "readme-generator": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "context-generator": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    },
+    "reference-extractor": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "mode": "subagent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv/
+venv/
+exports/
+*.xlsx
+*.xls
+dist/
+*.db
+
+# Pipeline generado (planes, tareas, features, reportes, contexto)
+docs/pipeline/
+docs/context/
+docs/references/
+
+# Alembic
+alembic/versions/
+
+# Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
