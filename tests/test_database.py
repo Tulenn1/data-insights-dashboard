@@ -1,5 +1,3 @@
-import pytest
-from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from src.database import engine, get_session

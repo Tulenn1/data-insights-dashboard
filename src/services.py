@@ -6,8 +6,6 @@ from streamlit.runtime.caching import cache_data
 
 from src.database import get_session
 from src.logger import get_logger
-
-logger = get_logger(__name__)
 from src.queries import (
     get_active_customers,
     get_avg_ticket,
@@ -25,6 +23,8 @@ from src.queries import (
     get_top_margin_products,
     get_top_products,
 )
+
+logger = get_logger(__name__)
 
 
 def _safe_query(query_fn, *args, **kwargs) -> pd.DataFrame:
