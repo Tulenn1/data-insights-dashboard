@@ -12,7 +12,11 @@ def get_revenue(session: Session, start_date: date, end_date: date) -> pd.DataFr
         WHERE status = 'completed'
           AND order_date BETWEEN :start_date AND :end_date
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
 def get_order_count(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
@@ -22,7 +26,11 @@ def get_order_count(session: Session, start_date: date, end_date: date) -> pd.Da
         WHERE status = 'completed'
           AND order_date BETWEEN :start_date AND :end_date
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
 def get_avg_ticket(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
@@ -32,20 +40,32 @@ def get_avg_ticket(session: Session, start_date: date, end_date: date) -> pd.Dat
         WHERE status = 'completed'
           AND order_date BETWEEN :start_date AND :end_date
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
-def get_active_customers(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
+def get_active_customers(
+    session: Session, start_date: date, end_date: date
+) -> pd.DataFrame:
     query = text("""
         SELECT COUNT(DISTINCT customer_id) AS active_customers
         FROM orders
         WHERE status = 'completed'
           AND order_date BETWEEN :start_date AND :end_date
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
-def get_monthly_revenue(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
+def get_monthly_revenue(
+    session: Session, start_date: date, end_date: date
+) -> pd.DataFrame:
     query = text("""
         SELECT
             DATE_TRUNC('month', order_date)::DATE AS month,
@@ -57,7 +77,11 @@ def get_monthly_revenue(session: Session, start_date: date, end_date: date) -> p
         GROUP BY month
         ORDER BY month
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
 def get_top_products(
@@ -103,7 +127,9 @@ def get_product_profitability(session: Session) -> pd.DataFrame:
     return pd.read_sql(query, session.connection())
 
 
-def get_revenue_by_category(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
+def get_revenue_by_category(
+    session: Session, start_date: date, end_date: date
+) -> pd.DataFrame:
     query = text("""
         SELECT
             c.name AS category,
@@ -118,7 +144,11 @@ def get_revenue_by_category(session: Session, start_date: date, end_date: date) 
         GROUP BY c.id, c.name
         ORDER BY revenue DESC
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
 def get_top_margin_products(session: Session, limit: int = 10) -> pd.DataFrame:
@@ -163,7 +193,9 @@ def get_most_profitable_product(session: Session) -> pd.DataFrame:
     return pd.read_sql(query, session.connection())
 
 
-def get_top_customers(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
+def get_top_customers(
+    session: Session, start_date: date, end_date: date
+) -> pd.DataFrame:
     query = text("""
         SELECT
             c.name AS customer,
@@ -178,10 +210,16 @@ def get_top_customers(session: Session, start_date: date, end_date: date) -> pd.
         GROUP BY c.id, c.name, c.email, c.region
         ORDER BY total_spent DESC
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
-def get_revenue_by_region(session: Session, start_date: date, end_date: date) -> pd.DataFrame:
+def get_revenue_by_region(
+    session: Session, start_date: date, end_date: date
+) -> pd.DataFrame:
     query = text("""
         SELECT
             c.region,
@@ -195,7 +233,11 @@ def get_revenue_by_region(session: Session, start_date: date, end_date: date) ->
         GROUP BY c.region
         ORDER BY revenue DESC
     """)
-    return pd.read_sql(query, session.connection(), params={"start_date": start_date, "end_date": end_date})
+    return pd.read_sql(
+        query,
+        session.connection(),
+        params={"start_date": start_date, "end_date": end_date},
+    )
 
 
 def get_new_customers_by_month(session: Session) -> pd.DataFrame:

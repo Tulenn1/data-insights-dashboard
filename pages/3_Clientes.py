@@ -30,7 +30,9 @@ start_date = date(start_date.year, start_date.month, start_date.day)
 end_date = date(end_date.year, end_date.month, end_date.day)
 
 customer_count_df = cached_customer_count()
-total_customers = int(customer_count_df["total"].iloc[0]) if not customer_count_df.empty else 0
+total_customers = (
+    int(customer_count_df["total"].iloc[0]) if not customer_count_df.empty else 0
+)
 
 top_customers_df = cached_top_customers(start_date, end_date)
 top_customer = top_customers_df.iloc[0] if not top_customers_df.empty else None

@@ -6,7 +6,9 @@ import plotly.graph_objects as go
 def revenue_line_chart(df: pd.DataFrame) -> go.Figure:
     if df.empty:
         fig = go.Figure()
-        fig.add_annotation(text="No hay datos para el período seleccionado", showarrow=False)
+        fig.add_annotation(
+            text="No hay datos para el período seleccionado", showarrow=False
+        )
         return fig
 
     fig = px.line(
@@ -28,7 +30,9 @@ def revenue_line_chart(df: pd.DataFrame) -> go.Figure:
 def revenue_by_category_bar(df: pd.DataFrame) -> go.Figure:
     if df.empty:
         fig = go.Figure()
-        fig.add_annotation(text="No hay datos para el período seleccionado", showarrow=False)
+        fig.add_annotation(
+            text="No hay datos para el período seleccionado", showarrow=False
+        )
         return fig
 
     fig = px.bar(
@@ -68,7 +72,9 @@ def top_margin_barh(df: pd.DataFrame) -> go.Figure:
 def revenue_by_region_bar(df: pd.DataFrame) -> go.Figure:
     if df.empty:
         fig = go.Figure()
-        fig.add_annotation(text="No hay datos para el período seleccionado", showarrow=False)
+        fig.add_annotation(
+            text="No hay datos para el período seleccionado", showarrow=False
+        )
         return fig
 
     fig = px.bar(

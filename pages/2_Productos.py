@@ -37,9 +37,13 @@ profit_df = cached_product_profitability()
 top_margin_df = cached_top_margin_products()
 most_profitable = cached_most_profitable_product()
 
-total_products = int(summary_df["total_products"].iloc[0]) if not summary_df.empty else 0
+total_products = (
+    int(summary_df["total_products"].iloc[0]) if not summary_df.empty else 0
+)
 avg_price = summary_df["avg_price"].iloc[0] if not summary_df.empty else 0
-top_product_name = most_profitable["product"].iloc[0] if not most_profitable.empty else "N/A"
+top_product_name = (
+    most_profitable["product"].iloc[0] if not most_profitable.empty else "N/A"
+)
 top_margin_val = most_profitable["margin"].iloc[0] if not most_profitable.empty else 0
 
 if selected_category != "Todas":
@@ -66,12 +70,23 @@ st.plotly_chart(fig2, use_container_width=True)
 st.subheader("📋 Rentabilidad por Producto")
 
 if not profit_df.empty:
-    display = profit_df[["product", "category", "price", "cost", "margin", "margin_pct"]].copy()
+    display = profit_df[
+        ["product", "category", "price", "cost", "margin", "margin_pct"]
+    ].copy()
     display["price"] = display["price"].apply(lambda x: f"${x:,.2f}")
-    display["cost"] = display["cost"].apply(lambda x: f"${x:,.2f}" if pd.notna(x) else "N/A")
+    display["cost"] = display["cost"].apply(
+        lambda x: f"${x:,.2f}" if pd.notna(x) else "N/A"
+    )
     display["margin"] = display["margin"].apply(lambda x: f"${x:,.2f}")
     display["margin_pct"] = display["margin_pct"].apply(lambda x: f"{x}%")
-    display.columns = ["Producto", "Categoría", "Precio", "Costo", "Margen ($)", "Margen (%)"]
+    display.columns = [
+        "Producto",
+        "Categoría",
+        "Precio",
+        "Costo",
+        "Margen ($)",
+        "Margen (%)",
+    ]
     st.dataframe(display, use_container_width=True, hide_index=True)
 else:
     st.info("⚠️ No hay datos de productos disponibles", icon="ℹ️")

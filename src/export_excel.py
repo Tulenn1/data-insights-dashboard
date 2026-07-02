@@ -36,7 +36,9 @@ def export_to_excel(
     _style_header(ws_summary)
 
     ws_products = wb.create_sheet("Top Productos")
-    for r_idx, row in enumerate(dataframe_to_rows(top_products, index=False, header=True)):
+    for r_idx, row in enumerate(
+        dataframe_to_rows(top_products, index=False, header=True)
+    ):
         ws_products.append(row)
     _style_header(ws_products)
 

@@ -40,7 +40,9 @@ customers_df = cached_active_customers(start_date, end_date)
 revenue_val = revenue_df["revenue"].iloc[0] if not revenue_df.empty else 0
 orders_val = int(orders_df["total_orders"].iloc[0]) if not orders_df.empty else 0
 ticket_val = ticket_df["avg_ticket"].iloc[0] if not ticket_df.empty else 0
-customers_val = int(customers_df["active_customers"].iloc[0]) if not customers_df.empty else 0
+customers_val = (
+    int(customers_df["active_customers"].iloc[0]) if not customers_df.empty else 0
+)
 
 kpi_cols = st.columns(4)
 with kpi_cols[0]:
@@ -65,7 +67,11 @@ else:
     st.info("⚠️ No hay datos para el período seleccionado", icon="ℹ️")
 
 excel_bytes = export_to_excel(
-    revenue_val, orders_val, ticket_val, customers_val, top_df if not top_df.empty else None,
+    revenue_val,
+    orders_val,
+    ticket_val,
+    customers_val,
+    top_df if not top_df.empty else None,
 )
 st.download_button(
     label="📥 Exportar a Excel",

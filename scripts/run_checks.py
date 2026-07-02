@@ -2,6 +2,7 @@
 Runs ruff linter + formatter check, then pytest.
 Usage: python scripts/run_checks.py
 """
+
 import subprocess
 import sys
 from pathlib import Path
