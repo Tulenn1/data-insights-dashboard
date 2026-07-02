@@ -1,1 +1,0 @@
-/home/Tulenn/data-insights-dashboard/agents-stack/commands/fix.md
